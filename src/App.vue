@@ -9,7 +9,7 @@ const input_category = ref(null);
 
 const todos_asc = computed(() =>
   todos.value.sort((a, b) => {
-    return a.createdAt - b.createdAt;
+    return b.createdAt - a.createdAt;
   })
 );
 
@@ -24,7 +24,13 @@ const addTodo = () => {
     createdAt: new Date().getTime(),
   });
   // console.log('Item Added',input_content)
+  input_content.value = ''
+  input_category.value = null
 };
+
+const removeTodo = todo => {
+  todos.value = todos.value.filter(t => t !== todo)
+}
 
 watch(
   todos,
@@ -59,7 +65,7 @@ onMounted(() => {
         <h4>What's on your todo list</h4>
         <input
           type="text"
-          placeholder="e.g. make a video"
+          placeholder="e.g. Add tasks to your list here..."
           v-model="input_content"
         />
 
